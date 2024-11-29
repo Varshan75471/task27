@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import UserList from './components/UserList';
+import UserForm from './components/UserForm';
+import './App.css'; // Ensure the updated CSS is applied
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const handleEdit = (user) => setCurrentUser(user);
+    const handleClearEdit = () => setCurrentUser(null);
+
+    return (
+        <div className="app-container">
+            <header>
+                <h1>React Axios CRUD</h1>
+            </header>
+            <main>
+                <UserForm
+                    currentUser={currentUser}
+                    onSave={() => setCurrentUser(null)}
+                    clearEdit={handleClearEdit}
+                />
+                <UserList onEdit={handleEdit} />
+            </main>
+        </div>
+    );
+};
 
 export default App;
